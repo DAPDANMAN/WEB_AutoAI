@@ -1,0 +1,90 @@
+import { useState, useEffect } from "react";
+import Button from "./components/ui/button";
+import Card from "./components/ui/card";
+import CardContent from "./components/ui/card-content";
+import Input from "./components/ui/input";
+import PaymentForm from "./components/payment-form";
+import SubscriptionPlans from "./components/subscription-plans";
+import UserComponent from "./components/user-component";
+import PluginIntegration from "./components/plugin-integration";
+import SecurePayment from "./components/secure-payment";
+import PrivacyPolicy from "./components/privacy-policy";
+import TermsOfService from "./components/terms-of-service";
+import ComplianceBanner from "./components/compliance-banner";
+import CashAppPayment from "./components/cashapp-payment";
+
+export default function Home() {
+  const [email, setEmail] = useState("");
+  const [pluginsLoaded, setPluginsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Simulate fetching and loading all plugins on page load
+    const timer = setTimeout(() => {
+      setPluginsLoaded(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-6">
+      <ComplianceBanner />
+      <header className="text-center mb-8">
+        <h1 className="text-4xl font-bold">AI-Powered Business Automation</h1>
+        <p className="text-lg text-gray-600 mt-2">
+          Automate content, payments, and income tracking
+        </p>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardContent>
+            <h2 className="text-2xl font-semibold">🔗 Payment Setup</h2>
+            <PaymentForm />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent>
+            <h2 className="text-2xl font-semibold">📈 Subscription Plans</h2>
+            <SubscriptionPlans />
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="mt-8 text-center">
+        <h3 className="text-xl font-medium">Join Our AI-Powered Business</h3>
+        <Input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mt-2"
+        />
+        <Button className="mt-4">Get Started</Button>
+      </div>
+
+      <div className="mt-8">
+        <UserComponent />
+      </div>
+
+      <div className="mt-8">
+        {pluginsLoaded ? <PluginIntegration /> : <p>Loading plugins...</p>}
+      </div>
+
+      <div className="mt-8">
+        <SecurePayment />
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold text-center">
+          💵 Pay with Cash App
+        </h2>
+        <CashAppPayment />
+      </div>
+
+      <footer className="mt-8 text-center text-gray-600">
+        <PrivacyPolicy /> | <TermsOfService />
+      </footer>
+    </div>
+  );
+}
